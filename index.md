@@ -3,8 +3,8 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
 layout: default
-title: What's a good blog name?
-description: A coding and analytics tutorials website with material in Python, SQL, Excel, and Web Development frameworks
+title: What's a good name?
+description: Coding + Analytics tutorials in Python, SQL, Excel, Dashboarding, and Web Development
 ---
 
 # What this site is
