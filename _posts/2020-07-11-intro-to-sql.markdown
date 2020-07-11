@@ -176,6 +176,9 @@ LEFT JOIN
 ;
 ```
 
+![test image](https://rileypredum.github.io/assets/images/image.png "test")
+
+
 What happened? I returned all columns in both tables, and where a user ID was in both the users table and the 
 experiments table, the columns in the experiments table are populated with that user’s corresponding experiments data, otherwise the values are NULL because there was no match!
 
