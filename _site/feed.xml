@@ -1,13 +1,177 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-07-11T13:04:58-07:00</updated><id>http://localhost:4000/</id><title type="html">Codify</title><subtitle>I write beginner-friendly coding tutorials for concepts in Python, SQL, web development frameworks, and Excel. I work as a Product Data Analyst in San Francisco.</subtitle><entry><title type="html">Intro to SQL - Part I</title><link href="http://localhost:4000/intros/sql/2020/07/11/intro-to-sql.html" rel="alternate" type="text/html" title="Intro to SQL - Part I" /><published>2020-07-11T10:53:53-07:00</published><updated>2020-07-11T10:53:53-07:00</updated><id>http://localhost:4000/intros/sql/2020/07/11/intro-to-sql</id><content type="html" xml:base="http://localhost:4000/intros/sql/2020/07/11/intro-to-sql.html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-07-11T13:38:03-07:00</updated><id>http://localhost:4000/</id><title type="html">Codify</title><subtitle>I write beginner-friendly coding tutorials for concepts in Python, SQL, web development frameworks, and Excel. I work as a Product Data Analyst in San Francisco.</subtitle><entry><title type="html">Intro to SQL - Part I</title><link href="http://localhost:4000/intros/sql/2020/07/11/intro-to-sql.html" rel="alternate" type="text/html" title="Intro to SQL - Part I" /><published>2020-07-11T10:53:53-07:00</published><updated>2020-07-11T10:53:53-07:00</updated><id>http://localhost:4000/intros/sql/2020/07/11/intro-to-sql</id><content type="html" xml:base="http://localhost:4000/intros/sql/2020/07/11/intro-to-sql.html">&lt;p&gt;As a Data Analyst, I work a lot in SQL, and I thought I’d share a walk through on how to use it to solve business problems. I’m self-taught and worked my way from Marketing into a Data Analyst role at an &lt;a href=&quot;https://www.springboard.com/?utm_source=github_pages_riley&amp;amp;utm_medium=blog&amp;amp;utm_campaign=teach_yourself_sql&amp;amp;utm_term=riley_article&quot;&gt;edtech startup&lt;/a&gt; specializing in Data Science and UX Design education.&lt;/p&gt;
 
-&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+&lt;p&gt;I wanted to pay it forward with my learnings and share some of the things I’ve found helpful in developing analytical skills. Without further ado, I’m going to jump in to the meat and potatoes: an end-to-end example of a few business/product analyst style problems you can solve with SQL.&lt;/p&gt;
 
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+&lt;p&gt;This article is for those of you looking to develop your SQL/analytical thinking skills, and those trying to break into and start their careers as a Business Analyst, Data Analyst, Product Analyst, or Data Scientist. Whatever the path you choose, I guarantee you that SQL is a crucial skill to have in your toolbox!&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;goals&quot;&gt;Goals&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Set up your own free instance of Mode, a commonly used business intelligence platform. Many Data Analyst and Data Scientist job descriptions look for candidates who know this tool so it’s good to get familiar with if you’re looking to break into the field.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Write basic SQL statements against a test data source provided by Mode.
+In a future part to this article series, I’ll dive deeper into more advanced SQL, and using it to solve business problems.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
 
-&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry></feed>
+&lt;h1 id=&quot;content&quot;&gt;Content&lt;/h1&gt;
+
+&lt;h2 id=&quot;goal-1-setup&quot;&gt;Goal 1: Setup&lt;/h2&gt;
+&lt;p&gt;To get started, you’re going to want to go ahead and go to mode.com and sign up for a free account. It’s a super quick and basic &lt;a href=&quot;https://app.mode.com/signup&quot;&gt;sign-up process&lt;/a&gt;. After you’ve verified your account you can log in.&lt;/p&gt;
+
+&lt;p&gt;Once in the platform, go to &lt;code class=&quot;highlighter-rouge&quot;&gt;SQL Training2019&lt;/code&gt; and click &lt;code class=&quot;highlighter-rouge&quot;&gt;Write a Query&lt;/code&gt;. As someone with experience in product and business analytics I’m going to walk you through SQL queries in the yammer_experiments table, which corresponds to product experiments and their results.&lt;/p&gt;
+
+&lt;p&gt;With that, we’ve achieved goal #1! Look at us go!&lt;/p&gt;
+
+&lt;h2 id=&quot;goal-2-basic-sql&quot;&gt;Goal 2: Basic SQL&lt;/h2&gt;
+&lt;p&gt;Let’s run the first query to figure out how many rows we’re dealing with:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+     &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;tutorials&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yammer_experiments&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The query above tells you the number of rows in the table — 2595.&lt;/p&gt;
+
+&lt;p&gt;Now that we know the size of this table, let’s get a sense of the table’s values. To do this, write the following using the &lt;code class=&quot;highlighter-rouge&quot;&gt;LIMIT&lt;/code&gt; clause:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+     &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;tutorials&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yammer_experiments&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The asterisk gets all columns and the &lt;code class=&quot;highlighter-rouge&quot;&gt;LIMIT&lt;/code&gt; clause reduces the number of rows returned, otherwise you’ll be waiting for a while, especially on huge tables.&lt;/p&gt;
+
+&lt;p&gt;It looks like the yammer_experiments table is some kind of web analytics data. Seeing the occurred_at field makes me think it’s what’s called an events table. An events table is different in that each row corresponds to an action a user takes.&lt;/p&gt;
+
+&lt;p&gt;Typically there is a trigger set up in the database where the following logic is carried out: if a user takes action A, log a record capturing that user-action pair in events table A. The occurrence of the action activates the trigger and pushes a record to that table.&lt;/p&gt;
+
+&lt;p&gt;I don’t know this table though, so this is my hypothesis. In Analyst work, it’s essential to develop and test hypotheses. To test my hypothesis that each row is a user- action pair and therefore any user could perform more than one action, let’s count the number of times each user_id appears and see if there are more than one entry for any user id. This next query introduces two new clauses: &lt;code class=&quot;highlighter-rouge&quot;&gt;GROUP BY&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;ORDER BY&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;tutorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yammer_experiments&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DESC&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In the above query, I selected the user ids from the table and used the same &lt;code class=&quot;highlighter-rouge&quot;&gt;COUNT(1)&lt;/code&gt; logic introduced above. &lt;code class=&quot;highlighter-rouge&quot;&gt;GROUP BY&lt;/code&gt; groups the counts by user id. Finally, I used &lt;code class=&quot;highlighter-rouge&quot;&gt;ORDER BY&lt;/code&gt; and the keyword &lt;code class=&quot;highlighter-rouge&quot;&gt;DESC&lt;/code&gt; (standing for descending order) to get the largest number of instances of user ids first. This produced the following result:&lt;/p&gt;
+
+&lt;p&gt;This invalidates my hypothesis that this is an events table, but let’s soldier onward!&lt;/p&gt;
+
+&lt;p&gt;Let’s understand the next column better: &lt;code class=&quot;highlighter-rouge&quot;&gt;occurred_at&lt;/code&gt;. So we know that a user only shows up once, maybe it’s some kind of action that can’t be performed twice.&lt;/p&gt;
+
+&lt;p&gt;At any rate, it would be interesting assuming your stakeholder didn’t tell you this information or you didn’t ask them in a meeting when this experiment was run. It’s easy to do this, using aggregate functions: &lt;code class=&quot;highlighter-rouge&quot;&gt;MIN&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;MAX&lt;/code&gt;. Take a look and run the query below:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;MIN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;occurred_at&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;MAX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;occurred_at&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;tutorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yammer_experiments&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will show us that the earliest action was performed June 1st, 2014 just past midnight and the latest action was 10:45 PM on June 30th, 2014. Let’s assume this was a June 2014 experiment then!&lt;/p&gt;
+
+&lt;p&gt;A note on readability and ease of understanding is needed now. Using the AS keyword in our &lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT&lt;/code&gt; clause for these columns is a little nicer for our own understanding and anyone who might run this query in the future.&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;MIN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;occurred_at&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;`Earliest Occurrence`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;MAX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;occurred_at&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;`Latest Occurrence`&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;tutorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yammer_experiments&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This is called aliasing, and it helps with readability and understanding in SQL. When working with other analysts solely however, I’d actually recommend keeping the table and field names exactly as is — because aliases are your own naming conventions.&lt;/p&gt;
+
+&lt;p&gt;Other analysts will only readily understand the database schema as it’s actually called and not what you decide to rename it! So if you’re looking for feedback or working collaboratively, try not to alias even though you’ll be typing more. Be a nice fellow Analyst — don’t alias.&lt;/p&gt;
+
+&lt;p&gt;Note: backticks (`) don’t work in every version of SQL for aliasing, and some SQL variants have a hard time with spaces. Experiment with underscores instead of spaces, single, or double quotes until you don’t get an error if that’s the case.&lt;/p&gt;
+
+&lt;p&gt;Before diving into other ways to explore these data, it’s important to see if the control and test groups are equivalent sizes. If we are doing an A/B test looking at two variants of a design flow, button clicking behavior, landing page, etc., we want the data to be evenly split across the number of variants. Let’s check that with the &lt;code class=&quot;highlighter-rouge&quot;&gt;COUNT(1)&lt;/code&gt; trick again.&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;experiment_group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number_of_participants&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;tutorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yammer_experiments&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;experiment_group&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This shows us that while test_group had 849 participants, control_group had 1746 participants! While this split is not ideal, both sides do have statistically significant numbers of observations, so let’s take note of that A/B split caveat and push onward — this is the kind of thing to note to stakeholders and add as a recommendation for the future — split your groups evenly, please!&lt;/p&gt;
+
+&lt;p&gt;You may have noticed in Mode they have multiple Yammer tables. Were you wondering how they relate? A Data org worth its salt would have an ER (entity relationship) Diagram, which shows the primary and foreign keys of tables.&lt;/p&gt;
+
+&lt;p&gt;Primary keys are usually the first column in a table and foreign keys are the keys that point outward from that table, mapping to the primary keys of whatever other table you’re trying to &lt;code class=&quot;highlighter-rouge&quot;&gt;JOIN&lt;/code&gt; to. This brings me to the concept of the &lt;code class=&quot;highlighter-rouge&quot;&gt;JOIN&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s try the following: &lt;code class=&quot;highlighter-rouge&quot;&gt;JOIN&lt;/code&gt; the users table to the experiments table. Before we dive in, and since we don’t know the schema, let’s learn the schema empirically by running queries against the tables! To aid in readability and deal with weird linebreaks from table names being too long, I’ll break my own rule and alias the next section’s tables and fields.&lt;/p&gt;
+
+&lt;p&gt;Let’s see if all the users were used in the experiment table:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;tutorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yammer_users&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;users&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;INNER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;tutorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yammer_experiments&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;experiments&lt;/span&gt; 
+      &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;experiments&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;users&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The query above again counts the number of rows, but the number of rows that are returned after all user ids in the users table are inner joined to the experiments table. The result? 2595. Why? &lt;code class=&quot;highlighter-rouge&quot;&gt;INNER JOIN&lt;/code&gt; is the inner section of a venn-diagram, meaning that records in table A will only be returned if they match up to the field used in the ON clause in table B (experiments table).&lt;/p&gt;
+
+&lt;p&gt;In plain English: 2595 rows are returned because out of all the users (the users table), only these 2595 user IDs were used in the experiments table.&lt;/p&gt;
+
+&lt;p&gt;Because the experiments table is a subset of the users table (rightly so as you don’t want to run an experiment against all your users!), this is a great opportunity to use another kind of join: &lt;code class=&quot;highlighter-rouge&quot;&gt;LEFT JOIN&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s try the same query as above but using a &lt;code class=&quot;highlighter-rouge&quot;&gt;LEFT JOIN&lt;/code&gt; instead of an &lt;code class=&quot;highlighter-rouge&quot;&gt;INNER JOIN&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;tutorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yammer_users&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;users&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;LEFT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;tutorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yammer_experiments&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;experiments&lt;/span&gt; 
+      &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;experiments&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;users&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Well? Did it work? It should have returned the number of rows in the users table! This is because it takes all user IDs in the users table, and only the rows in the experiments table for which the user IDs correspond. Dis-aggregate the table produced by the above query to see for yourself!&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;tutorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yammer_users&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;users&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;LEFT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;tutorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yammer_experiments&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;experiments&lt;/span&gt; 
+  &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;experiments&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;users&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;What happened? I returned all columns in both tables, and where a user ID was in both the users table and the 
+experiments table, the columns in the experiments table are populated with that user’s corresponding experiments data, otherwise the values are NULL because there was no match!&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;In this first part of this SQL Academy series, you learned the basics of SQL: &lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;FROM&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;LIMIT&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;COUNT&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;GROUP BY&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;MIN&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;MAX&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;ORDER BY&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;In the next part I wrote about sub-queries and case statements. Check it out here!&lt;/p&gt;
+
+&lt;p&gt;If you found this article useful or learned something new, consider donating any amount to pay it forward for the next learner!&lt;/p&gt;
+
+&lt;p&gt;Thanks for reading and happy coding!&lt;/p&gt;
+
+&lt;p&gt;Riley&lt;/p&gt;</content><author><name></name></author><summary type="html">As a Data Analyst, I work a lot in SQL, and I thought I’d share a walk through on how to use it to solve business problems. I’m self-taught and worked my way from Marketing into a Data Analyst role at an edtech startup specializing in Data Science and UX Design education.</summary></entry></feed>
