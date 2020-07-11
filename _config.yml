@@ -15,6 +15,7 @@
 # in the templates via {{ site.myvariable }}.
 title: Codify
 email: rileypredum@gmail.com
+medium: rileypredum
 description: >- # this means to ignore newlines until "baseurl:"
   I write beginner-friendly coding tutorials for concepts in Python, SQL, web development frameworks, and Excel. I work as a Product Data Analyst in San Francisco.
 baseurl: "" # the subpath of your site, e.g. /blog
@@ -26,6 +27,12 @@ markdown: kramdown
 theme: jekyll-theme-cayman
 plugins:
   - jekyll-feed
+
+
+permalink: /:categories/:year/:month/:day/:title:output_ext
+
+# show_downloads: "true"
+# google_analytics: [Your Google Analytics tracking ID]
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
