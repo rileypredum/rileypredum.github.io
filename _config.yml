@@ -29,9 +29,16 @@ plugins:
   - jekyll-feed
 
 
-permalink: /:categories/:title
+permalink: /:categories/:title # cleans the URIs of posts
+
+BASE_PATH : /
 
 
+defaults:
+  - scope:
+      path: "assets/img"
+    values:
+      image: true
 
 # show_downloads: "true"
 # google_analytics: [Your Google Analytics tracking ID]

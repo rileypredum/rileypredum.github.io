@@ -19,6 +19,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
   </head>
+
   <body>
     <header class="page-header" role="banner">
       <h1 class="project-name">{{ page.title | default: site.title }}</h1>
@@ -27,24 +28,23 @@
 
     <main id="content" class="main-content" role="main">
         {{ content }}
-        {% for post in site.posts %}
-            <article class="{%if forloop.first %}first{% elsif forloop.last %}last{% else %}middle{% endif %}">
-                    <div class="article-head">
-                        <h2 class="title"><a href="{{ post.url }}" class="js-pjax">{{ post.title }}</a></h2>
-                        <p class="description">{{ post.description }}</p>
-                        <p class="date">{{ post.date | date: "%b %d, %Y" }}</p>
-                    </div><!--/.article-head-->
-                    <div class="article-content">
-                    {{ post.long_description }}
-                    <a href="{{ post.url }}" class="full-post-link js-pjax">Read more</a>
-                    </div><!--/.article-content-->
-                </article>
-            {% if forloop.last %}{% else %}<div class="separater"></div>{% endif %}
-        {% endfor %}
-      
+          {% for post in site.posts %}
+              <article class="{%if forloop.first %}first{% elsif forloop.last %}last{% else %}middle{% endif %}">
+                      <div class="article-head">
+                          <h2 class="title"><a href="{{ post.url }}" class="js-pjax">{{ post.title }}</a></h2>
+                          <p class="description">{{ post.description }}</p>
+                          <p class="date">{{ post.date | date: "%b %d, %Y" }}</p>
+                      </div><!--/.article-head-->
+                      <div class="article-content">
+                      {{ post.long_description }}
+                      <a href="{{ post.url }}" class="full-post-link js-pjax">Read more</a>
+                      </div><!--/.article-content-->
+                  </article>
+              {% if forloop.last %}{% else %}<div class="separater"></div>{% endif %}
+          {% endfor %}
 
       <footer class="site-footer">
-          <span class="site-footer-owner">{{ site.github.repository_name }} is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a>.</span>
+          <span class="site-footer-owner">{{ site.github.repository_name }} is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></span>
       </footer>
     </main>
   </body>
