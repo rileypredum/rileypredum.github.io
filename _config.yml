@@ -19,7 +19,7 @@ medium: medium.com/@rileypredum
 description: >- # this means to ignore newlines until "baseurl:"
   I write beginner-friendly coding tutorials for concepts in Python, SQL, web development frameworks, and Excel. I work as a Product Data Analyst in San Francisco.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://rileypredum.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  rileypredum
 
 # Build settings
