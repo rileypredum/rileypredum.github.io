@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title:  "Intro to SQL - Part I"
 date:   2020-07-11 10:53:53 -0700
 categories: intros sql

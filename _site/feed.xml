@@ -1,4 +1,217 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-07-12T08:43:01-07:00</updated><id>http://localhost:4000/</id><title type="html">Codify</title><subtitle>I write beginner-friendly coding tutorials for concepts in Python, SQL, web development frameworks, and Excel. I work as a Product Data Analyst in San Francisco.</subtitle><entry><title type="html">Intro to SQL - Part I</title><link href="http://localhost:4000/intros/sql/intro-to-sql" rel="alternate" type="text/html" title="Intro to SQL - Part I" /><published>2020-07-11T10:53:53-07:00</published><updated>2020-07-11T10:53:53-07:00</updated><id>http://localhost:4000/intros/sql/intro-to-sql</id><content type="html" xml:base="http://localhost:4000/intros/sql/intro-to-sql">&lt;p&gt;As a Data Analyst, I work a lot in SQL, and I thought I’d share a walk through on how to use it to solve business problems. I’m self-taught and worked my way from Marketing into a Data Analyst role at an &lt;a href=&quot;https://www.springboard.com/?utm_source=github_pages_riley&amp;amp;utm_medium=blog&amp;amp;utm_campaign=teach_yourself_sql&amp;amp;utm_term=riley_article&quot;&gt;edtech startup&lt;/a&gt; specializing in Data Science and UX Design education.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-07-15T19:55:03-07:00</updated><id>http://localhost:4000/</id><title type="html">Codify</title><subtitle>I write beginner-friendly coding tutorials for concepts in Python, SQL, web development frameworks, and Excel. I work as a Product Data Analyst in San Francisco.</subtitle><entry><title type="html">Intro to SQL - Part II</title><link href="http://localhost:4000/intros/sql/intro-to-sql-part-2" rel="alternate" type="text/html" title="Intro to SQL - Part II" /><published>2020-07-15T14:00:00-07:00</published><updated>2020-07-15T14:00:00-07:00</updated><id>http://localhost:4000/intros/sql/intro-to-sql-part-2</id><content type="html" xml:base="http://localhost:4000/intros/sql/intro-to-sql-part-2">&lt;p&gt;A couple weeks ago, I decided to write more on what I’ve learned as a Data Analyst about SQL and analytical thinking. I work for an &lt;a href=&quot;https://www.springboard.com/?utm_source=medium&amp;amp;utm_medium=blog&amp;amp;utm_campaign=teach_yourself_sql&amp;amp;utm_term=riley_article&quot;&gt;edtech startup&lt;/a&gt; that focuses on getting students jobs in hot fields such as Data Science and UX Design.&lt;/p&gt;
+
+&lt;p&gt;This article is the second article in this series (see Part I here). Part I’s goals were to get you set up on Mode Analytics, and to get you familiar with basic SQL on an example database.&lt;/p&gt;
+
+&lt;p&gt;In this article, I’ll cover the following:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Diving deeper into SQL using sub-queries.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Tie things back to business example cases and how the results of the queries could be acted upon strategically.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Show some examples of how to effectively communicate the results of these queries with visualizations.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;goal-1-recap-and-more-sql&quot;&gt;Goal 1: recap and more SQL&lt;/h2&gt;
+
+&lt;p&gt;To recap what was covered in &lt;a href=&quot;https://rileypredum.github.io/intros/sql/intro-to-sql&quot;&gt;Part I&lt;/a&gt;, we got set up in the query editor on Mode, and ran some basic queries against the Yammer experiment tables, working on the following functionalities of SQL: &lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;FROM&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;LIMIT&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;COUNT&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;GROUP BY&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;ORDER BY&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;MIN&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;MAX&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;These are great for getting summary statistics and understanding your data. Let’s try to figure out a more complex business problem from the data next! But before I dive into that, I wanted to share a productivity tip:&lt;/p&gt;
+
+&lt;p&gt;In most SQL clients (MySQL Workbench, and this GUI Mode analytics platform we’ve been using, among other software) the end of a query is denoted with a semi-colon (;). In the next section, I’m going to write out several queries, with comments (a best practice) to show you that you can have multiple queries in a page and run whichever you want (running CTRL + Enter with it highlighted or with your cursor anywhere between &lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT&lt;/code&gt; and the semi-colon will run that query only).&lt;/p&gt;
+
+&lt;p&gt;Here’s an example of what I mean:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;-- This subquery produces the event type counts&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; 
+      &lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;event_type&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event_type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number_of_occurrences&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; 
+      &lt;span class=&quot;n&quot;&gt;tutorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yammer_events&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;event_type&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;-- This subquery produces the count of actions by location&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; 
+      &lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number_of_occurrences&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; 
+      &lt;span class=&quot;n&quot;&gt;tutorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yammer_events&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;location&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DESC&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;-- This grabs the count of actions by device&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; 
+      &lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;device&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number_of_occurrences&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; 
+      &lt;span class=&quot;n&quot;&gt;tutorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yammer_events&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;device&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DESC&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The two dashes are single-line comments. To comment out multiple lines, begin with ‘/*’ and end with ‘*/’. Running the above queries and checking the outputs, we see most of the actions are engagements. The US, Japan, and Germany are the top 3 locations of actions in these data. The most common device is the Macbook Pro, followed by the Lenovo Thinkpad, and finally the Macbook Air.&lt;/p&gt;
+
+&lt;h2 id=&quot;goal-2-tying-it-to-business-example-cases&quot;&gt;Goal 2: Tying it to business example cases&lt;/h2&gt;
+
+&lt;p&gt;Tying this back to a business case: if there were a bug affecting users on both OS X and Windows, it may be advisable for the tech team to work on the bug fix for OS X first, and roll that out while working on the Windows fix, since these are the two largest numbers of users that could be affected.&lt;/p&gt;
+
+&lt;p&gt;A more detailed table might store operating system versions too, which can help the developers know exactly what versions to patch for. Similar logic to the above can be applied when prioritizing which OS version to solve for first if those data were available.&lt;/p&gt;
+
+&lt;p&gt;What if we wanted to figure out if users that open emails exhibit other behavior? We need to explore more before we can try to figure out what patterns to look for.&lt;/p&gt;
+
+&lt;p&gt;Let’s see what the average number of actions a user takes is. This will give us a sense of the volume of engagement to expect:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; 
+      &lt;span class=&quot;n&quot;&gt;tutorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yammer_events&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;event_name&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Keep in mind that the events table is an actual events table. So all we need to do is count up the user ids and group by user id. Wait, didn’t we want average?
+Let’s introduce the concept of a subquery to get that value!&lt;/p&gt;
+
+&lt;p&gt;A subquery is a query within a query. It took me a while to understand how to use them until my co-worker explained a heuristic that helped set my mental model right. After that, it just clicked.&lt;/p&gt;
+
+&lt;p&gt;When you say &lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT&lt;/code&gt; something &lt;code class=&quot;highlighter-rouge&quot;&gt;FROM&lt;/code&gt; table, you’re querying that table and selecting the columns specified in the &lt;code class=&quot;highlighter-rouge&quot;&gt;SELECT&lt;/code&gt; clause. A sub-query returns what’s called a derived table, which is just a fancy way of saying the output of the query is a table which persists only for the duration of the query. Just like querying any table, you can query from that table, which is itself a query. I’ll start off with an example that wouldn’t make sense in practice but is illustrative of this concept in a simplified way.&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; 
+            &lt;span class=&quot;n&quot;&gt;tutorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yammer_events&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;example_derived_table&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This should be clear and illustrate why I learned to tabulate (i.e. indent) in the way I did. The opening parenthesis and closing parenthesis are in line with each other so you know where the sub-query starts and ends easily (trust me with 10 or 20 sub-queries, this is crucial!).&lt;/p&gt;
+
+&lt;p&gt;This query makes no sense to do, but it illustrates the point: I’m deriving a table of the user IDs in the events table, and from that, I’m pulling user ID.&lt;/p&gt;
+
+&lt;p&gt;Can you guess how we could use this to get the average number of actions a user takes using our previous &lt;code class=&quot;highlighter-rouge&quot;&gt;COUNT&lt;/code&gt; query?&lt;/p&gt;
+
+&lt;p&gt;Get the count of actions by user, and then &lt;code class=&quot;highlighter-rouge&quot;&gt;FROM&lt;/code&gt; that, take the average of those counts!&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;AVG&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;action_count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action_count&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; 
+            &lt;span class=&quot;n&quot;&gt;tutorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yammer_events&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;example_derived_table&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This returned 34.9! The first user had only a few though, so I suspect there’s a huge spread of actions, and indeed usually there are highly engaged and barely engaged users. So let’s get the COUNT of counts!&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;action_count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action_count&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; 
+            &lt;span class=&quot;n&quot;&gt;tutorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yammer_events&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;example_derived_table&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;action_count&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;action_count&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This returns to us the count of numbers of actions. The most common is a single action, which makes sense as its easier to take less action than more.&lt;/p&gt;
+
+&lt;p&gt;In the above sub-query examples, I sub-queried in the &lt;code class=&quot;highlighter-rouge&quot;&gt;FROM&lt;/code&gt; clause. But you can sub-query in any clause. I typically will write a sub-query in a &lt;code class=&quot;highlighter-rouge&quot;&gt;JOIN&lt;/code&gt; clause, because I want to join some manipulated data back onto some base table.&lt;/p&gt;
+
+&lt;h2 id=&quot;goal-3-effective-visualizations&quot;&gt;Goal 3: Effective Visualizations&lt;/h2&gt;
+
+&lt;p&gt;Oftentimes it is most efficient to produce simple, readable charts to convey information to stakeholders in the business. Say you were working on a product analytics team, and you were tasked with showing the spread of user engagement. How many users perform x number of actions total?&lt;/p&gt;
+
+&lt;p&gt;We already have the query that produces this result. You could then make a bar chart out of the resultant data, either in Mode or after extracting the data as a CSV and importing it into Python, Excel, or any other tool you prefer!&lt;/p&gt;
+
+&lt;p&gt;In Mode, you simply take the query you’ve written, then click the chart button and choose a bar chart. Drag the columns derived from the query into the X and Y axes, and there’s your chart!&lt;/p&gt;
+
+&lt;p&gt;This shows us there are a huge number of users that perform one action, and significantly less that perform more than that. The x-axis is not ideal though, so let’s revisit the query and use the &lt;code class=&quot;highlighter-rouge&quot;&gt;CASE&lt;/code&gt; statement and predicate logic to create a better bucketing of the data for the X-axis. This will allow us to truncate the data for readability and conciseness.&lt;/p&gt;
+
+&lt;p&gt;Here’s the SQL query that buckets the data on the X-axis:&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;CASE&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action_count&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BETWEEN&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'[0-10]'&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action_count&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BETWEEN&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'[10-20]'&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action_count&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BETWEEN&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'[20-30]'&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action_count&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BETWEEN&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;40&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'[30-40]'&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action_count&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BETWEEN&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;40&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'[40-50]'&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action_count&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BETWEEN&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'[50-60]'&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action_count&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BETWEEN&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;70&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'[60-70]'&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action_count&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BETWEEN&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;70&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;80&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'[70-80]'&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action_count&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BETWEEN&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;80&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;90&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'[80-90]'&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;WHEN&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action_count&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BETWEEN&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;90&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;THEN&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'[90-100]'&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;END&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action_count_bucketed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;       
+      &lt;span class=&quot;k&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number_of_users&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;action_count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number_of_users&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;action_count&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; 
+                &lt;span class=&quot;n&quot;&gt;tutorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yammer_events&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;example_derived_table&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;action_count&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;ORDER&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;action_count&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;case_table&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;action_count_bucketed&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Much better! Using case statements and capturing the ranges of values, I was able to simplify this chart down. There’s no need to know that 20 or so users performed 98 actions. It’s “good enough” to say that 120 performed 90 to 100 actions! Always keep in mind the 80/20 rule and how much is just enough information.&lt;/p&gt;
+
+&lt;p&gt;The story behind this chart is that you can see that most users are not very engaged, with a few core groups in the 10-20 through 30-40 actions buckets. The next step in this is to work with the datetime column occured_at to tell a much more interesting story of when these actions occur, and to look at important product engagement metrics like daily active users (DAU), weekly active users (WAU) and more.&lt;/p&gt;
+
+&lt;p&gt;I’ll dive deeper into working with datetime values in the next part of this series, so stay tuned!&lt;/p&gt;
+
+&lt;p&gt;If you found this article useful or learned something new, consider donating any amount to pay it forward for the next learner!&lt;/p&gt;
+
+&lt;p&gt;Thanks for reading and happy coding!&lt;/p&gt;
+
+&lt;p&gt;Riley&lt;/p&gt;</content><author><name></name></author><summary type="html">A couple weeks ago, I decided to write more on what I’ve learned as a Data Analyst about SQL and analytical thinking. I work for an edtech startup that focuses on getting students jobs in hot fields such as Data Science and UX Design.</summary></entry><entry><title type="html">Intro to SQL - Part I</title><link href="http://localhost:4000/intros/sql/intro-to-sql" rel="alternate" type="text/html" title="Intro to SQL - Part I" /><published>2020-07-11T10:53:53-07:00</published><updated>2020-07-11T10:53:53-07:00</updated><id>http://localhost:4000/intros/sql/intro-to-sql</id><content type="html" xml:base="http://localhost:4000/intros/sql/intro-to-sql">&lt;p&gt;As a Data Analyst, I work a lot in SQL, and I thought I’d share a walk through on how to use it to solve business problems. I’m self-taught and worked my way from Marketing into a Data Analyst role at an &lt;a href=&quot;https://www.springboard.com/?utm_source=github_pages_riley&amp;amp;utm_medium=blog&amp;amp;utm_campaign=teach_yourself_sql&amp;amp;utm_term=riley_article&quot;&gt;edtech startup&lt;/a&gt; specializing in Data Science and UX Design education.&lt;/p&gt;
 
 &lt;p&gt;I wanted to pay it forward with my learnings and share some of the things I’ve found helpful in developing analytical skills. Without further ado, I’m going to jump in to the meat and potatoes: an end-to-end example of a few business/product analyst style problems you can solve with SQL.&lt;/p&gt;
 
