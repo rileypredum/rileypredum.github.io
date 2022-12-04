@@ -29,10 +29,10 @@
 /* Componentry */
 
 	img {
-	margin: 0;
-	padding: 0;
-	  width: 100%;
-	  height: 100%;
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		height: 100%;
 	}
 
 	header {
@@ -71,6 +71,51 @@
 
 	.opening-lines {
 		padding: 5% 10% 0% 10%;
+	}
+
+	/* Horizontal Scrolling Images */
+
+	.gallery-container {
+	  position: relative;
+	  display: flex;
+	  justify-content: center;
+	}
+
+	.thumbnails {
+	  position: absolute;
+	  display: flex;
+	  flex-direction: row;
+	  
+	}
+
+	.thumbnails div {
+	  width: 100%;
+	}
+
+	.thumbnails div.highlighted {
+	  background-color: #000;
+	}
+
+	.slides {
+	  display: flex;
+	  grid-auto-flow: column;
+	  gap: 2rem;
+	  width: auto;
+	  overflow-y: auto;
+	  overscroll-behavior-x: contain;
+	  
+	}
+
+	.slides > div {
+	  scroll-snap-align: start;
+	}
+
+	.slides img {
+	  width: auto;
+	}
+
+	.slides::-webkit-scrollbar {
+	  display: none;
 	}
 
 /* Text boxings */
